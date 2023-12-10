@@ -29,9 +29,6 @@ class ReviewCreate(generics.CreateAPIView):
         movie_slug = self.kwargs.get("slug")
         user = self.request.user
 
-        context.update({
-            "movie_slug": movie_slug,
-            "user": user
-        })
+        context.update({"movie_slug": movie_slug, "user": user})
 
         return context

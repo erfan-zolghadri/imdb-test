@@ -33,6 +33,8 @@ class ReviewSerializer(serializers.ModelSerializer):
         movie_slug = self.context.get("movie_slug")
         user = self.context.get("user")
         movie = get_object_or_404(Movie, slug=movie_slug)
-        review = Review.objects.create(movie=movie, user=user, **validated_data)
+        review = Review.objects.create(
+            movie=movie, user=user, **validated_data
+        )
         self.instance = review
         return review
