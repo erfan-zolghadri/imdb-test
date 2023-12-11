@@ -1,19 +1,24 @@
 from __future__ import absolute_import, unicode_literals
 import os
 
-from celery import Celery
 from django.conf import settings
+
+from celery import Celery
+from celery.schedules import crontab
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
 app = Celery('imdb')
-app.conf.enable_utc = False
-app.conf.update(timezone="Asia/Kolkata")
+
+app.conf.update(timezone="Asia/Tehran", enable_utc=True)
 app.config_from_object(settings, namespace='CELERY')
 
 # Celery Beat
 app.conf.beat_schedule = {
-    
+    "send-email-every-day-at-8": {
+        "task": "core.tasks.send_mail_func",
+        "schedule": crontab(hour=20, minute=0)
+    }
 }
 
 app.autodiscover_tasks()
