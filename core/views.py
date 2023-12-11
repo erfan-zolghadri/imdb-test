@@ -1,21 +1,9 @@
 from django.db.models import Avg
-from django.http.response import HttpResponse
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 
 from .models import Movie, Review
 from .serializers import MovieSerializer, ReviewSerializer
-from .tasks import send_mail_func
-
-
-# def test_view(request):
-#     test_func.delay()
-#     return HttpResponse("Done")
-
-
-def send_mail_view(request):
-    send_mail_func.delay()
-    return HttpResponse("Emails were sent")
 
 
 class MovieList(generics.ListAPIView):
