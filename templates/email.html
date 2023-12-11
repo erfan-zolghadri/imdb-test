@@ -1,0 +1,7 @@
+{% autoescape off %}
+New movies
+{% for movie in movie_queryset %}
+{{ movie.title }} ({{ movie.release_date }})
+{{ movie.description|truncatewords:10 }}
+{% endfor %}
+{% endautoescape %}
